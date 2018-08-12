@@ -4,11 +4,21 @@ from flask import Flask, url_for, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from instagram import getfollowedby, getname
 
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
+JSONNAME = "map.json"
+def dic2json(data):
+    with open(JSONNAME, 'w') as fp:
+        json.dump(data, fp)
+
+def json2dic():
+    with open(JSONNAME, 'r') as fp:
+        data = json.load(fp)
+    return data
 
 class User(db.Model):
 	""" Create user table"""
@@ -20,7 +30,7 @@ class User(db.Model):
 		self.username = username
 		self.password = password
 
-
+'''
 @app.route('/', methods=['GET', 'POST'])
 def home():
 	""" Session control"""
@@ -31,8 +41,21 @@ def home():
 			username = getname(request.form['username'])
 			return render_template('index.html', data=getfollowedby(username))
 		return render_template('index.html')
+'''
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+	""" Session control"""
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	else:
+		if request.method == 'POST':
+			username = getname(request.form['username'])
+			return render_template('index.html', data=getfollowedby(username))
+		return render_template('map.html',data=devs)
 
 
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	"""Login Form"""
@@ -61,6 +84,26 @@ def register():
 		return render_template('login.html')
 	return render_template('register.html')
 
+
+@app.route('/setmac', methods=['GET', 'POST'])
+def setmac():
+	"""Register Form"""
+	if request.method == 'POST':
+		email=request.form['email']
+		mac=request.form['mac']
+		#print("email"+email)
+		#print("mac"+mac)
+		if email in devs:
+			l=devs[email]
+			l.append(mac)
+		else:
+			l=[]
+			l.append(mac)
+			devs[email]=l
+		return render_template('map.html',data=devs)
+	return render_template('map.html',data=devs)
+
+
 @app.route("/logout")
 def logout():
 	"""Logout Form"""
@@ -68,9 +111,22 @@ def logout():
 	return redirect(url_for('home'))
 
 
+
+@app.route('/map')
+def map():
+    global devs
+    return render_template("map.html",
+      data=devs,
+      title='Map Table')
+
+
 if __name__ == '__main__':
-	app.debug = True
-	db.create_all()
-	app.secret_key = "123"
-	app.run(host='0.0.0.0')
+    global devs
+    devs=json2dic()
+    print(type(devs))
+    print(devs)    
+    app.debug = True
+    db.create_all()
+    app.secret_key = "123"
+    app.run(host='0.0.0.0',port=9999)
 	
