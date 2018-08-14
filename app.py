@@ -30,7 +30,7 @@ class User(db.Model):
 		self.username = username
 		self.password = password
 
-'''
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
 	""" Session control"""
@@ -41,8 +41,37 @@ def home():
 			username = getname(request.form['username'])
 			return render_template('index.html', data=getfollowedby(username))
 		return render_template('index.html')
-'''
 
+import requests
+
+def getHdata():
+	for url in urls:
+		r=requests.get(url)
+		tabls_data.append(r.json())
+		
+tabls_data=	[{
+  "gtime": "20:54:29",
+  "status": "offline"
+},
+{
+  "gtime": "20:54:59",
+  "status": "offline"
+},
+]
+	
+@app.route('/tabls', methods=['GET', 'POST'])
+def tabls():
+	#getHdata()
+	""" Session control"""
+	if not session.get('logged_in'):
+		return render_template('index.html')
+	else:
+		print(tabls_data)
+		return render_template('tabls.html',data=tabls_data)
+
+	
+	
+'''
 @app.route('/', methods=['GET', 'POST'])
 def home():
 	""" Session control"""
@@ -53,7 +82,8 @@ def home():
 			username = getname(request.form['username'])
 			return render_template('index.html', data=getfollowedby(username))
 		return render_template('map.html',data=devs)
-
+'''
+	
 
     
 @app.route('/login', methods=['GET', 'POST'])
@@ -68,7 +98,7 @@ def login():
 			data = User.query.filter_by(username=name, password=passw).first()
 			if data is not None:
 				session['logged_in'] = True
-				return redirect(url_for('home'))
+				return redirect(url_for('tabls'))
 			else:
 				return 'Dont Login'
 		except:

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+{% if session['logged_in'] %} 
+<!--
+<h2>Register</h2>
+<form action="/setmac" method="POST">
+  <input type="text" name="email" placeholder="email">
+  <input type="text" name="mac" placeholder="mac">
+  <input type="submit" value="setting">
+</form>
+  -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>病床</th>
+            <th>狀態</th>
+            <th>取得時間</th>
+            <th>BiBag</th>
+            <th>BloodFlow</th>
+            <th>Conductivity</th>
+            <th>HBloodPreseeure</th>
+            <th>HDF</th>
+            <th>HeparinPump</th>
+            <th>LBloodPreseeure</th>
+			<th>PulseCount</th>
+       		<th>LBloodPreseeure</th>
+       		<th>RateUnit</th>
+       		<th>TMP</th>
+       		<th>VNIF</th>
+       		<th>VenousPressure</th>
+       		<th>Volume</th>
+         </tr>
+    </thead>
+    <tbody>
+        {% for badinfo in data %}
+        <tr>
+         <td>
+        1
+        </td>       
+        <td>
+        {{badinfo['status']}}
+        </td>
+        <td>
+        {{badinfo['gtime']}}		
+		</td>
+		<td>
+		{{badinfo['BiBag']}}
+		</td>
+		<td>
+		{{badinfo['BloodFlow']}}
+		</td>
+		<td>
+		{{badinfo['HDF']}}
+		</td>
+		<td>
+		{{badinfo['HeparinPump']}}
+		</td>
+		<td>
+		{{badinfo['LBloodPreseeure']}}
+		</td>
+		<td>
+		{{badinfo['RateUnit']}}
+		</td>
+		<td>
+		{{badinfo['TMP']}}
+		</td>
+		<td>
+		{{badinfo['VNIF']}}
+		</td>
+		<td>
+		{{badinfo['VenousPressure']}}
+		</td>
+		<td>
+		{{badinfo['Volume']}}
+		</td>
+				
+		</tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% else %}
+<p>Not login!</p>
+
+<a href="/login">Login</a> 
+<!--<a href="/register">Register</a>-->
+
+{% endif %}
+{% endblock %}
+
+  
+  
