@@ -43,6 +43,38 @@ def home():
 		return render_template('index.html')
 
 import requests
+urls=[]
+urls.append('http://192.168.1.149/api/hadata/0196-1')
+urls.append('http://192.168.1.149/api/hadata/0196-2')
+urls.append('http://192.168.1.149/api/hadata/0196-3')
+urls.append('http://192.168.1.149/api/hadata/0196-5')
+urls.append('http://192.168.1.149/api/hadata/0196-6')
+urls.append('http://192.168.1.149/api/hadata/0196-7')
+urls.append('http://192.168.1.149/api/hadata/0196-8')
+urls.append('http://192.168.1.149/api/hadata/0196-9')
+urls.append('http://192.168.1.149/api/hadata/0196-10')
+urls.append('http://192.168.1.149/api/hadata/0196-11')
+urls.append('http://192.168.1.149/api/hadata/0196-12')
+urls.append('http://192.168.1.149/api/hadata/0196-13')
+urls.append('http://192.168.1.149/api/hadata/0196-15')
+urls.append('http://192.168.1.149/api/hadata/0196-16')
+urls.append('http://192.168.1.149/api/hadata/0196-17')
+urls.append('http://192.168.1.149/api/hadata/0196-18')
+urls.append('http://192.168.1.149/api/hadata/0196-19')
+urls.append('http://192.168.1.149/api/hadata/0196-20')
+urls.append('http://192.168.1.149/api/hadata/0196-21')
+urls.append('http://192.168.1.149/api/hadata/0196-22')
+urls.append('http://192.168.1.149/api/hadata/0196-23')
+urls.append('http://192.168.1.149/api/hadata/0196-25')
+urls.append('http://192.168.1.149/api/hadata/0196-26')
+urls.append('http://192.168.1.149/api/hadata/0196-27')
+urls.append('http://192.168.1.149/api/hadata/0196-28')
+urls.append('http://192.168.1.149/api/hadata/0196-29')
+urls.append('http://192.168.1.149/api/hadata/0196-30')
+urls.append('http://192.168.1.149/api/hadata/0196-31')
+urls.append('http://192.168.1.149/api/hadata/0196-32')
+urls.append('http://192.168.1.149/api/hadata/0196-33')
+
 
 def getHdata():
 	for url in urls:
